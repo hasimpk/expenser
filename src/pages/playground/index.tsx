@@ -19,18 +19,17 @@ const PlayGround = ({ firebaseConfig: config }: { firebaseConfig: any }) => {
             appId: config.APP_ID,
         }, firebaseTag)
     }
-
-    // const db = firestore.getFirestore(app);
-    // const collection: any = firestore.collection(db, 'user');
-    // console.log(collection);
+    
+    const db = firestore.getFirestore(app);
+    const collection: any = firestore.collection(db, 'user');
     useEffect(() => {
        try {
-        // const citySnapshot = firestore.getDocs(collection).then(citySnapshot => {
-        //     const result = citySnapshot.docs.map(doc => doc.data())
-        //     console.log(result);
-        // });
+        const citySnapshot = firestore.getDocs(collection).then(citySnapshot => {
+            const result = citySnapshot.docs.map(doc => doc.data())
+            console.log(result);
+        });
        } catch (error) {
-           
+           console.log(error,'xxx')
        }
     }, [])
     return (<div>Hai</div>)
