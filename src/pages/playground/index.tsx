@@ -1,5 +1,5 @@
 import * as firebase from 'firebase/app';
-import * as firestore from "firebase/firestore";
+import * as firestore from "firebase/firestore/lite";
 import { useEffect } from 'react';
 
 const PlayGround = ({ firebaseConfig: config }: { firebaseConfig: any }) => {
@@ -19,18 +19,42 @@ const PlayGround = ({ firebaseConfig: config }: { firebaseConfig: any }) => {
             appId: config.APP_ID,
         }, firebaseTag)
     }
-    
+
     const db = firestore.getFirestore(app);
     const collection: any = firestore.collection(db, 'user');
+    const fetchData = async () => {
+        try {
+            // const citySnapshot = firestore.getDocs(collection).then(citySnapshot => {
+            //     const result = citySnapshot.docs.map(doc => doc.data())
+            //     console.log(result);
+            // });
+            const query = firestore.query(collection, firestore.where('uid', '==', '123'));
+            // const condition = collection.where('uid', '==', '123');
+
+            const snapShot = await firestore.getDocs(query);
+            // const addSnapShot = await firestore.addDoc(collection,{name:'new user'});
+            const result = snapShot.docs.map(doc => doc.data())
+            console.log(result, 'xx');
+        } catch (error) {
+            console.log(error, 'xxx')
+        }
+    }
+    const updateData = async () => {
+        const query = firestore.query(collection, firestore.where('uid', '==', '123'));
+        // const docRef = firestore.doc(db, 'user');
+        const snapShot = await firestore.getDocs(query);
+        const result = snapShot.docs.map(doc => {
+            return { id: doc.id, data: doc.data() }
+        })
+        console.log(result, 'xx');;
+        const id = result[0].id
+        const updateRef = firestore.doc(db, `user`,id);
+        await firestore.setDoc(updateRef, { name: 'new user' });
+
+    }
     useEffect(() => {
-       try {
-        const citySnapshot = firestore.getDocs(collection).then(citySnapshot => {
-            const result = citySnapshot.docs.map(doc => doc.data())
-            console.log(result);
-        });
-       } catch (error) {
-           console.log(error,'xxx')
-       }
+        // fetchData();
+        updateData();
     }, [])
     return (<div>Hai</div>)
 
