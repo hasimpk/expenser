@@ -8,8 +8,8 @@ import styles from '../../styles/Home.module.css'
 import { useState } from 'react';
 import { NextPage } from 'next';
 import hooks from '../../hooks';
-
-let firebaseTag = 'login'
+import { FIREBASE_TAG as firebaseTag } from '../../config/constants';
+// let firebaseTag = 'login'
 
 type Props = {
     callBackAfterLogin: Function,
@@ -26,7 +26,7 @@ const Login: NextPage | any = ({ callBackAfterLogin = () => { }, firebaseConfig:
     // const { accessToken } = useStore();
     const [accessToken, setAccessToken] = useState<any>(undefined);
     const router = useRouter();
-    const [data,setData] = hooks.UserStorage();
+    const [data, setData] = hooks.UserStorage();
     const googleLogin = () => {
         let app;
         const firebaseConfigureJson = {
@@ -64,7 +64,7 @@ const Login: NextPage | any = ({ callBackAfterLogin = () => { }, firebaseConfig:
                     // global.sessionStorage.setItem('uid', result.user.uid)
                     // global.sessionStorage.setItem('photoUrl', result.user.photoURL)
                     setAccessToken(result._tokenResponse.oauthAccessToken)
-                    setData({result,global});
+                    setData({ result, global });
 
                 }
             })

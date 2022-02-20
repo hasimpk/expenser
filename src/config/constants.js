@@ -1,0 +1,1 @@
+export const FIREBASE_TAG = 'firebase_login';
