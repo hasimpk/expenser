@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import Header from '../../components/header';
 import ChangeSpreadSheet from '../../components/spreadsheet-id';
 import SideBar from '../../components/sidebar';
-
+import GooglePicker from '../../components/google-picker';
 const ChangeSpreadSheetId = () => {
     const router = useRouter();
 
@@ -23,9 +23,10 @@ const ChangeSpreadSheetId = () => {
 
                         <div className="py-4 ">
                             <div className="md:border-4 bg-black md:border-dashed md:border-gray-200 rounded-lg h-auto pb-10" >
-                                <ChangeSpreadSheet
+                                {/* <ChangeSpreadSheet
                                     setSpreadSheetLinkCallBack={(id: String) => { callBack(id) }}
-                                />
+                                /> */}
+                                <GooglePicker />
                             </div>
                         </div>
 
